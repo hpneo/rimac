@@ -1,4 +1,4 @@
-# require 'rimac/version'
+require 'rimac/version'
 require 'net/http'
 require 'uri'
 require 'json'
@@ -6,7 +6,7 @@ require 'json'
 module Rimac
   class API
 
-    BASE_URL = "http://apisandbox.junar.com/datastreams/invoke/"
+    BASE_URL = "http://apisandbox.junar.com/datastreams/"
 
     attr_accessor :api_key
 
@@ -18,7 +18,7 @@ module Rimac
       options = {}
       options[:output] = "json_array"
 
-      url = url_for(resource, options)
+      url = url_for('invoke', resource, options)
 
       response = JSON.parse(Net::HTTP.get_response(URI.parse(url)).body)
 
@@ -42,12 +42,22 @@ module Rimac
       response
     end
 
+    def search(query, options = {})
+      options ||= {}
+      options.delete(:query)
+      options[:query] = query
+
+      url = url_for('search', resource, options)
+
+      response = JSON.parse(Net::HTTP.get_response(URI.parse(url)).body)
+    end
+
     private
 
-    def url_for(resource, options = {})
+    def url_for(method, resource, options = {})
       raise "API Key is required" if self.api_key.nil?
 
-      url = BASE_URL + resource + "?auth_key=#{self.api_key}"
+      url = BASE_URL + method + "/" + resource + "?auth_key=#{self.api_key}"
 
       options.each do |key, value|
         url = url + "&#{key}=#{value}"
