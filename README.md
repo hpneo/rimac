@@ -3,6 +3,12 @@ Rimac - Ruby client for Municipalidad Metropolitana de Lima API ([http://lima.da
 
 Rimac is a client for  Municipalidad Metropolitana de Lima API ([http://lima.datosabiertos.pe/](http://lima.datosabiertos.pe/)). More information [here](http://lima.datosabiertos.pe/developers/).
 
+Install
+----
+```
+gem install rimac
+```
+
 Usage
 ----
 ```ruby

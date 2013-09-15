@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["gustavo@xenda.pe"]
   gem.description   = "Ruby client for Municipalidad Metropolitana de Lima API (http://lima.datosabiertos.pe/)"
   gem.summary       = "Ruby client for Municipalidad Metropolitana de Lima API (http://lima.datosabiertos.pe/)"
+  gem.homepage      = "https://github.com/hpneo/rimac"
 
   gem.platform      = Gem::Platform::RUBY
   gem.version       = Rimac::VERSION
