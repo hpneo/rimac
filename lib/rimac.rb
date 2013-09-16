@@ -20,12 +20,14 @@ module Rimac
       options[:page] ||= 0
       options[:output] = "json_array"
 
+      options[:limit] += 1
+
       url = url_for('invoke', resource, options)
 
       response = JSON.parse(Net::HTTP.get_response(URI.parse(url)).body)
 
-      original_result = response["result"]
-      headers = original_result.shift
+      original_result = response["result"].to_a
+      headers = original_result.shift.to_a
 
       results = []
 
