@@ -14,8 +14,10 @@ module Rimac
       self.api_key = api_key
     end
 
-    def get(resource)
-      options = {}
+    def get(resource, options = {})
+      options ||= {}
+      options[:limit] ||= 100
+      options[:page] ||= 0
       options[:output] = "json_array"
 
       url = url_for('invoke', resource, options)
