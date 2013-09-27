@@ -22,12 +22,18 @@ module Rimac
 
       options[:limit] += 1
 
+      headers = options.delete(:headers)
+
       url = url_for('invoke', resource, options)
 
       response = JSON.parse(Net::HTTP.get_response(URI.parse(url)).body)
 
       original_result = response["result"].to_a
-      headers = original_result.shift.to_a
+      if headers
+        headers = headers.to_a
+      else
+        headers = original_result.shift.to_a
+      end
 
       results = []
 
@@ -35,7 +41,7 @@ module Rimac
         result = {}
 
         headers.each_index do |i|
-          result[headers[i].to_s.downcase.gsub(" ", "_")] = row[i]
+          result[headers[i].to_s.downcase.gsub(" ", "_")] = row[i] unless headers[i].nil?
         end
 
         results << result
